@@ -1,4 +1,5 @@
 from app import app
+from .models import User
 
 
 @app.route('/')
@@ -11,3 +12,10 @@ def index():
 def plebs():
     return 'ti si fider!'
 
+
+@app.route('/users/', methods=['GET'])
+def get_users():
+    user = User(username='Oliver', password='feeding')
+    result = {"username": user.username,
+              "password": user.password}
+    return result
