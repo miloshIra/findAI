@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <center>
+        <h1>Hello, {{ user.username }}!</h1>
+
+        {% for service in services %}
+        <div><p>{{ service.author.username }} made: <b>{{ service.description }}</b></p></div>
+        {% endfor %}
+
+
+    </center>
+
+{% endblock %}
