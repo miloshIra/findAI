@@ -9,7 +9,15 @@
     </head>
     <body>
         <div>findAI: <a href="/index">Home</a></div>
-        <div>findAI: <a href="/login">Login</a></div>
+        {% if current_user.is_anonymous %}
+        findAI: <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        {% if user == current_user %}
+        <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+        {% endif %}
+        <a href="{{ url_for('user_details', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
                 <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
