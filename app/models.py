@@ -1,5 +1,5 @@
 import uuid
-
+from datetime import datetime
 import flask_login
 from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from app import db
@@ -16,12 +16,23 @@ def load_user(id):
     return User.query.get(id)
 
 
+class Company(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = db.Column(db.String(64), index=True, unique=True)
+    contact = db.Column(db.String(65))
+    created = db.Column(db.DateTime, default=datetime.utcnow)
+    users = db.relationship('User', backref='employ', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Company {}>'.format(self.name)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    company = db.Column(db.String(128))
+    company_id = db.Column(UUID(as_uuid=True), db.ForeignKey('company.id'), index=True, nullable=True)
     services = db.Column(ARRAY(db.String(256)))
 
     def __repr__(self):
@@ -32,4 +43,7 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+
 

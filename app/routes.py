@@ -1,7 +1,7 @@
 from app import app, db
-from .models import User
+from .models import User, Company
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
@@ -52,6 +52,29 @@ def register():
         flash('Congrats, you are now a registered user')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/comp_register', methods=['GET', 'POST'])
+def comp_register():
+    if current_user.is_authenticated and current_user.company_id is not None:
+        company = Company.query.filter_by(id=current_user.company_id).first()
+        print(company)
+        flash('You already belong to company {}'.format(company.name))
+        return redirect(url_for('index'))
+    form = CompanyRegistrationForm()
+    if form.validate_on_submit():
+        company = Company(name=form.name.data, contact=form.contact.data)
+        db.session.add(company)
+        db.session.flush()
+        current_user.company_id = company.id
+        # company = Company.query.filter_by(name=form.name.data).first()
+        # user = current_user
+        # user.company_id = company.id
+        # db.session.add(user)
+        db.session.commit()
+        flash('Company saved')
+        return redirect(url_for('index'))  # This should redirect to company page
+    return render_template('company.html', title='Company', form=form)
 
 
 @app.route('/logout')
