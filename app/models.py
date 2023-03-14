@@ -21,7 +21,7 @@ class Company(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     contact = db.Column(db.String(65))
     created = db.Column(db.DateTime, default=datetime.utcnow)
-    users = db.relationship('User', backref='employ', lazy='dynamic')
+    users = db.relationship('User', backref='company', lazy='dynamic')
 
     def __repr__(self):
         return '<Company {}>'.format(self.name)
@@ -34,6 +34,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     company_id = db.Column(UUID(as_uuid=True), db.ForeignKey('company.id'), index=True, nullable=True)
     services = db.Column(ARRAY(db.String(256)))
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<User {}'.format(self.username)
@@ -45,5 +46,8 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-
+class AIService(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    counter = db.Column(db.Integer)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 

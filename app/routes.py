@@ -4,6 +4,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from sqlalchemy.orm import joinedload
 
 
 @app.route('/')
@@ -67,10 +68,6 @@ def comp_register():
         db.session.add(company)
         db.session.flush()
         current_user.company_id = company.id
-        # company = Company.query.filter_by(name=form.name.data).first()
-        # user = current_user
-        # user.company_id = company.id
-        # db.session.add(user)
         db.session.commit()
         flash('Company saved')
         return redirect(url_for('index'))  # This should redirect to company page
@@ -93,6 +90,11 @@ def get_users():
 @login_required
 def user_details(username):
     user = User.query.filter_by(username=username).first_or_404()
+    # company = Company.query.filter_by(id=user.company_id).first_or_404()
+    # data = {
+    #     'user': user,
+    #     'company': company,
+    # }
     return render_template('user.html', user=user)
 
 
