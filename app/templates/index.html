@@ -2,13 +2,22 @@
 
 
 {% block app_content %}
-       <div class="container">
-        <h1>Hello, {{ current_user.username }}!</h1>
 
-        {% for service in services %}
-        <div><p>{{ service.author.username }} made: <b>{{ service.description }}</b></p></div>
-        {% endfor %}
-       </div>
-
+        <div class="row">
+            <div class="col-md-4">
+                {%if current_user.is_authenticated %}
+                <h1>Hello, {{ current_user.username }}!</h1>
+                {% else %}
+                <h1>Hello!</h1>
+                {% endif %}
+                <br>
+                <br>
+            {% for service in services %}
+                 <div><p>{{ service.author.username }} made: <b>{{ service.description }}</b></p></div>
+                {% endfor %}
+            </div>
+        {% include 'snippets/desc.html' %}
+        {% include 'snippets/image.html' %}
+    </div>
 
 {% endblock %}

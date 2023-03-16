@@ -13,9 +13,64 @@ body {
 }
 
 .container-nav {
+    background-color: #F6FBF4;
     padding-right: 10px;
     padding-left: 10
     px;
     margin-right: auto;
     margin-left: auto;
+}
+
+
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-brand {
+  color: #C8DBBE; /* Change this value to adjust the link color */
+  font-size: 22px;
+}
+
+.navbar-default {
+    border-color: #F6FBF4;
+}
+
+.mid-text {
+    text-align: left;
+}
+
+.login-image{
+    max-width: 100%;
+    height: auto;
+}
+
+.row {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.footer {
+  background-color: #F6FBF4;
+  height: 100px;
+  position: absolute;
+    left: 0 ; right: 0; bottom: 0;
+    height:[footer-height]
+}
+
+.icon {
+    text-align: center;
+}
+
+.text-reset {
+    color: #C8DBBE;
+}
+
+
+.icons {
+    text-align: center;
+    text-color: rgba(221,239,242,255);
+    padding-top: 25px;
+}
+
+.text-reset {
+    font-size: 30px;
+    padding-left: 45px;
 }
