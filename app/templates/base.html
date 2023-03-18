@@ -20,14 +20,21 @@
 
 
 {% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
+    {% block alerts %}
+
+    {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
+            <center>
             <div class="alert alert-info" role="alert">{{ message }}</div>
+            </center>
             {% endfor %}
         {% endif %}
         {% endwith %}
+    {% endblock %}
+
+
+    <div class="container">
 
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}

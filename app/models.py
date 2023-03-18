@@ -48,6 +48,16 @@ class User(UserMixin, db.Model):
 
 class AIService(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    counter = db.Column(db.Integer)
+    counter = db.Column(db.Integer) # why did I use this for ??
     created = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class AIIdea(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'))
+    category = db.Column(db.String(32))
+    description = db.Column(db.Text())
+    name = db.Column(db.String(32))
+    created = db.Column(db.DateTime, default=datetime.utcnow)
+
 

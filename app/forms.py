@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from app.models import User
 
@@ -48,3 +48,11 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Username already taken')
+
+
+class ModelIdeaForm(FlaskForm):
+    # username = StringField(validators=[DataRequired()])
+    name = StringField(validators=[DataRequired()])
+    category = StringField('Category', validators=[DataRequired()])
+    description = TextAreaField('Short description', validators=[DataRequired()])
+    submit = SubmitField('Submit')

@@ -1,7 +1,7 @@
 from app import app, db
-from .models import User, Company
+from .models import User, Company, AIIdea
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, ModelIdeaForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from sqlalchemy.orm import joinedload
@@ -59,7 +59,6 @@ def register():
 def comp_register():
     if current_user.is_authenticated and current_user.company_id is not None:
         company = Company.query.filter_by(id=current_user.company_id).first()
-        print(company)
         flash('You already belong to company {}'.format(company.name))
         return redirect(url_for('index'))
     form = CompanyRegistrationForm()
@@ -112,6 +111,24 @@ def edit_profile():
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 
+@app.route('/model_idea', methods=['GET', 'POST'])
+def model_idea():
+    if current_user.is_anonymous:
+        flash('You need to login to leave an model suggestion.')
+        return redirect(url_for('index'))
+    form = ModelIdeaForm()
+    if form.validate_on_submit():
+        idea = AIIdea(user_id=current_user.id,
+                      name=form.name.data,
+                      category=form.category.data,
+                      description=form.description.data)
+        db.session.add(idea)
+        db.session.commit()
+        flash('Your idea has been submited we will contact you as soon as possible.')
+        return redirect(url_for('index'))
+    return render_template('model_idea.html', title='Model Idea', form=form)
 
 
-
+@app.route('/api_docs', methods=['GET', 'POST'])
+def api_docs():
+    return render_template('api_docs', title='API documentation')
