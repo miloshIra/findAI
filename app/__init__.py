@@ -7,10 +7,16 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from flask_bootstrap import Bootstrap
+from .api.routes import api_bp
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+
+# ---- Register blueprints here -----
+app.register_blueprint(api_bp)
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)

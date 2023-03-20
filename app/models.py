@@ -1,6 +1,5 @@
 import uuid
 from datetime import datetime
-import flask_login
 from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -59,5 +58,22 @@ class AIIdea(db.Model):
     description = db.Column(db.Text())
     name = db.Column(db.String(32))
     created = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class Entry(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'))
+    image = db.Column(db.LargeBinary)
+    # service = db.Column(db.String(64), nullable=True)  # What service was used to generate image.
+    image_result = db.Column(db.LargeBinary, nullable=True)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def get_image(id):
+        pass
+
+    def get_result_image(id):
+        pass
+
+
 
 
