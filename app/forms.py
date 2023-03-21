@@ -1,5 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, \
+                    BooleanField, SubmitField, \
+                    TextAreaField
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from app.models import User
 
@@ -56,3 +59,9 @@ class ModelIdeaForm(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     description = TextAreaField('Short description', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class HairTransForm(FlaskForm):
+    image = FileField('Image', id='image',
+                      validators=[DataRequired(), FileAllowed(['jpeg', 'jpg', 'webp', 'png'], 'Images only!')])
+    submit = SubmitField('Upload Image')

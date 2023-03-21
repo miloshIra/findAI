@@ -1,10 +1,10 @@
 from app import app, db
 from .models import User, Company, AIIdea
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, ModelIdeaForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, ModelIdeaForm, HairTransForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from sqlalchemy.orm import joinedload
+from .service import AIService
 
 
 @app.route('/')
@@ -132,3 +132,24 @@ def model_idea():
 @app.route('/api_docs', methods=['GET', 'POST'])
 def api_docs():
     return render_template('api_docs', title='API documentation')
+
+
+@app.route('/service/hair_trans', methods=['GET', 'POST'])
+def hair_trans():
+    if current_user.is_anonymous:
+        flash('You need to login to leave an model suggestion.')
+        return redirect(url_for('index'))
+    form = HairTransForm()
+    if form.validate_on_submit():
+        data_dict = form.image.data
+        print(data_dict)
+        ran_service = AIService.hair_transplant_service(data_dict)
+        return render_template('hair_transplant.html', form=form, context=ran_service)
+    return render_template('hair_transplant.html', title='Hair Transplant Model', form=form)
+
+
+
+
+
+
+

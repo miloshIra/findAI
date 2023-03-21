@@ -6,9 +6,6 @@ api_bp = Blueprint('api', __name__, url_prefix='/api/v0.1')
 api = Api(api_bp)
 
 
-# @api_bp.route('/get_data')
-# @login_required
-
 class Data(Resource):
     def get(self):
         return {'key': 'value',

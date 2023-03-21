@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy.dialects.postgresql import UUID, ARRAY
+from sqlalchemy.dialects.postgresql import UUID, ARRAY, JSON
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -45,10 +45,14 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-class AIService(db.Model):
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    counter = db.Column(db.Integer) # why did I use this for ??
-    created = db.Column(db.DateTime, default=datetime.utcnow)
+# class AIService(db.Model):  # Should this be an abstract class ? that just makes services ??
+#                             # it's children will be saved in tables
+#                             # and have one to many indexed relation to the entries ?
+#     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+#     counter = db.Column(db.Integer) # why did I use this for ??
+#     created = db.Column(db.DateTime, default=datetime.utcnow)
+#     params = db.Column(JSON)
+#     users = db.relationship('Entry', backref='aiservice', lazy='dynamic')
 
 
 class AIIdea(db.Model):
@@ -64,7 +68,7 @@ class Entry(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'))
     image = db.Column(db.LargeBinary)
-    # service = db.Column(db.String(64), nullable=True)  # What service was used to generate image.
+    service_id = db.Column(db.String(32), index=True)
     image_result = db.Column(db.LargeBinary, nullable=True)
     created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -73,6 +77,16 @@ class Entry(db.Model):
 
     def get_result_image(id):
         pass
+
+    def __dict__(self):
+        return {'id': self.id,
+                'user_id': self.user_id,
+                'image': self.image,
+                'service': self.service,
+                'image_result': self.image_result,
+                'created': self.created}
+
+
 
 
 
