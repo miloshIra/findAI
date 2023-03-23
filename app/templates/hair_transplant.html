@@ -21,6 +21,7 @@
 </script>
 
 {% block app_content %}
+<div class="container">
     <h3>Upload Image here</h3>
 <div class="row">
 <form method="POST" enctype="multipart/form-data">
@@ -33,8 +34,9 @@
                                   max-height:400px;" src="">
     {{ form.image(class="form-control-file", style="padding-top:15px;", id="image", onchange="displayImage(event)") }}
     <br>
-    {% if form.image.data is not none %}
-       {{ form.image.date }}
+    {% if context is not none %}
+<!--       <img id="imageProcessed">{{ context }}</img>-->
+      <p><img src="{{ url_for('static', filename=context) }}"></p>
       {% endif %}
     {{ form.submit(class="btn btn-primary") }}
   </div>
@@ -43,6 +45,7 @@
         {% include 'snippets/image.html' %}
 
 </div>
+    </div>
 
 <script>
   function displayImage(event) {

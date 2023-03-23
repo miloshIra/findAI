@@ -3,7 +3,9 @@
 
 
 {% block app_content %}
+<div class="container">
     <h3>Your idea:</h3>
+
    <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
@@ -15,5 +17,5 @@
 <!--        {% include 'snippets/desc.html' %}-->
         {% include 'snippets/image.html' %}
     </div>
-
+</div>
 {% endblock %}

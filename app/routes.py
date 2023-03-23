@@ -10,16 +10,9 @@ from .service import AIService
 @app.route('/')
 @app.route('/index')
 def index():
-    services = [
-        {
-            'author': {'username': 'Ira'},
-            'description': 'AI model that sorts photos.'
-        },
-        {
-            'author': {'username': 'Stap'},
-            'description': 'AI that improves photo quality.'
-        }]
-    return render_template('index.html', title='Home', services=services)
+    context = {'service': 'Hair Transplant',
+               'call': 'Check it on the bar above'}
+    return render_template('index.html', title='Home', context=context)
 
 
 @app.route('/login', methods=["POST", "GET"])
@@ -141,10 +134,11 @@ def hair_trans():
         return redirect(url_for('index'))
     form = HairTransForm()
     if form.validate_on_submit():
-        data_dict = form.image.data
+        data_dict = request.files['image']
         print(data_dict)
-        ran_service = AIService.hair_transplant_service(data_dict)
-        return render_template('hair_transplant.html', form=form, context=ran_service)
+        service = AIService.hair_transplant_service(data_dict)
+        print(service)
+        return render_template('hair_transplant.html', form=form, context=service)
     return render_template('hair_transplant.html', title='Hair Transplant Model', form=form)
 
 

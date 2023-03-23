@@ -4,14 +4,34 @@
 
 body {
     font-family: 'Baloo Bhaijaan 2', cursive;
+    padding-bottom: 100px;
+}
+
+footer {
+  background-color: #F6FBF4;
+  height: 60px;
+  position: fixed;
+    left: 0 ; right: 0; bottom: 0;
+    height:[footer-height]
 }
 
 .container {
     background-color: rgba(221,239,242,255);
     border-radius: 15px;
-    padding-bottom: 20px;
+    padding: 20px;
 }
 
+.mid {
+    background-color: rgba(221,239,242,255);
+    padding:10px;
+
+}
+.card {
+    background-color: #FFF2CC;
+    padding: 10px;
+    min-height: 350px;
+    border-radius: 15px;
+}
 .container-nav {
     background-color: #F6FBF4;
     padding-right: 10px;
@@ -22,15 +42,16 @@ body {
 }
 
 
-
 .navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-brand {
   color: #C8DBBE; /* Change this value to adjust the link color */
   font-size: 22px;
 }
 
-.navbar-default {
-    border-color: #F6FBF4;
+
+.navbar-default .navbar-header {
+    border-color: #C8DBBE;
+    min-height: 50px;
 }
 
 .mid-text {
@@ -43,20 +64,12 @@ body {
 }
 
 .row {
-    padding-top: 20px;
     padding-bottom: 10px;
-}
-
-.footer {
-  background-color: #F6FBF4;
-  height: 100px;
-  position: absolute;
-    left: 0 ; right: 0; bottom: 0;
-    height:[footer-height]
 }
 
 .icon {
     text-align: center;
+    margin-bottom: 15px;
 }
 
 .text-reset {

@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+<div class="container">
     <h1>{{ user.username }}</h1>
     <hr>
     <p>
     {{ user.username }} comes from {{ user.company.name }}.
     </p>
+</div>
 {% endblock %}

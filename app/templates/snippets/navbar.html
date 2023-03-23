@@ -21,7 +21,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('api.data') }}">Dev Area</a></li>
-                    <li><a href="{{ url_for('hair_trans') }}">Hair transplant Model</a></li>
+                    <li><a href="">Services</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -32,6 +32,14 @@
                     {% endif %}
                 </ul>
             </div>
+<!--            <div class="navbar-footer">-->
+<!--                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+<!--                    <span class="sr-only">Toggle navigation</span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                </button>-->
+<!--                </div>-->
         </div>
     </nav>
 
