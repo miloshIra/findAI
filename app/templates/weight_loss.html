@@ -11,14 +11,18 @@
     <img id="imagePreview" style="
                                   padding-top:10px;
                                   display:none;
-                                  max-width:300px;
-                                  max-height:320px;" src="">
+                                  max-width:350px;
+                                  max-height:400px;" src="">
     {{ form.image(class="form-control-file", style="padding-top:15px;", id="image", onchange="displayImage(event)") }}
     <br>
+    {% if context is not none %}
+<!--       <img id="imageProcessed">{{ context }}</img>-->
+      <p><img src="{{ url_for('static', filename=context) }}"></p>
+      {% endif %}
     {{ form.submit(class="btn btn-primary") }}
   </div>
   </form>
-        {% include 'snippets/hair_trans_desc.html' %}
+        {% include 'snippets/desc.html' %}
         {% include 'snippets/image.html' %}
 
 </div>

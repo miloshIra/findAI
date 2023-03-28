@@ -1,5 +1,5 @@
 from app import app, db
-from .models import User, Company, AIIdea
+from .models import User, Company, AIIdea, Entry
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, ModelIdeaForm, HairTransForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -107,7 +107,7 @@ def edit_profile():
 @app.route('/model_idea', methods=['GET', 'POST'])
 def model_idea():
     if current_user.is_anonymous:
-        flash('You need to login to leave an model suggestion.')
+        flash('You need to login to leave a model suggestion.')
         return redirect(url_for('index'))
     form = ModelIdeaForm()
     if form.validate_on_submit():
@@ -117,7 +117,7 @@ def model_idea():
                       description=form.description.data)
         db.session.add(idea)
         db.session.commit()
-        flash('Your idea has been submited we will contact you as soon as possible.')
+        flash('Your idea has been submitted we will contact you as soon as possible.')
         return redirect(url_for('index'))
     return render_template('model_idea.html', title='Model Idea', form=form)
 
@@ -130,18 +130,39 @@ def api_docs():
 @app.route('/service/hair_trans', methods=['GET', 'POST'])
 def hair_trans():
     if current_user.is_anonymous:
-        flash('You need to login to leave an model suggestion.')
+        flash('Please sign in to try out services.')
         return redirect(url_for('index'))
     form = HairTransForm()
     if form.validate_on_submit():
-        data_dict = request.files['image']
-        print(data_dict)
-        service = AIService.hair_transplant_service(data_dict)
+        user = current_user.id
+        image = request.files['image']
+        data = image.read()
+
+        work_dict = {'user': user,
+                     'image': data}
+        service = AIService.hair_transplant_service(work_dict)
         print(service)
-        return render_template('hair_transplant.html', form=form, context=service)
+
+        return render_template('hair_transplant_result.html', form=form, context=service)
     return render_template('hair_transplant.html', title='Hair Transplant Model', form=form)
 
 
+@app.route('/service/results', methods=['GET'])
+def get_service_result():
+    if current_user.is_anonymous:
+        flash('Please sign in to try out services.')
+        return redirect(url_for('index'))
+
+    import base64
+    from io import BytesIO
+    entry = Entry.query.filter_by(user_id=current_user.id).order_by(Entry.created.desc()).first()
+
+    binary_string = bytes(entry.image)
+    base64_string = base64.b64encode(binary_string).decode('utf-8')
+
+    context = {'image': base64_string,
+               'user': 'Ira'}
+    return render_template('hair_transplant_result.html', context=context)
 
 
 

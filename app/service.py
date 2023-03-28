@@ -1,12 +1,27 @@
 from .models import Entry
+from app import db
+from flask import jsonify
 
 
 class AIService:
-    def __init__(self):
-        pass
 
     @staticmethod
-    def hair_transplant_service(data_dict):
+    def hair_transplant_service(work_dict):
+        service_name = 'hair_transplant'
+        new_entry = Entry(service=service_name,
+                          user_id=work_dict['user'],
+                          image=work_dict['image'])
+
+        db.session.add(new_entry)
+        db.session.commit()
+
+        pre_image = new_entry.image
+
+        result = {'image': new_entry.image}
         print("IN SERVICE")
-        return data_dict
+
+        return result
+
+
+
 

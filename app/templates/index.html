@@ -3,62 +3,64 @@
 
 {% block app_content %}
 
-    <div class="container">
-        {%if current_user.is_authenticated %}
-                <h1>Hello, {{ current_user.username }}!</h1>
-        {% else %}
-                <h1>Hello</h1>
-        {% endif %}
-        <div class="row">
-            <div class="col-md-4">
-                <br>
-                <p style="font-size:25px;">Welcome to finAI, <br>Check Out our <br>
-                    Hair Transplant photo service! <br>
-                    On the bar above!
-                </p>
-                <br>
-                <br>
-            </div>
+<div class="container">
+    {%if current_user.is_authenticated %}
+    <h1>Hello, {{ current_user.username }}!</h1>
+    {% else %}
+    <h1>Hello</h1>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-4" style="">
+            <br>
+            <p style="font-size:25px;">Welcome to finAI, <br>Check Out our <br>
+                Hair Transplant photo service! <br>
+                On the bar above!
+            </p>
+            <br>
+            <br>
+        </div>
         {% include 'snippets/desc.html' %}
         {% include 'snippets/image.html' %}
     </div>
-    </div>
-    <br>
- <div class="container">
+</div>
+<br>
+<div class="container">
     <div class="row">
-    <div class="col-md-12 mid">
-        <center>
-        <h3> Check out our services</h3>
-        </center>
-    </div>
+        <div class="col-md-12 mid">
+            <center>
+                <h3> Check out our services</h3>
+            </center>
         </div>
     </div>
+</div>
 
-    <br>
-    <div class="container cards">
-        <div class="row">
-            <div class="col-md-4">
-              <a href="{{ url_for('hair_trans') }}">  <div class="card">
-                <center>
-                <h3> Hair Transplant </h3>
-                </center>
-              </div> </a>
-            </div>
-            <div class="col-md-4">
+<br>
+<div class="container cards">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{{ url_for('hair_trans') }}">
                 <div class="card">
-                <center>
-                <h3> Weight Loss </h3>
-                </center>
+                    <center>
+                        <h3> Hair Transplant </h3>
+                    </center>
                 </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <center>
+                    <h3> Weight Loss </h3>
+                </center>
             </div>
-            <div class="col-md-4">
-               <div class="card">
+        </div>
+        <div class="col-md-4">
+            <div class="card">
                 <center>
-                <h3> Muscle Gain </h3>
+                    <h3> Muscle Gain </h3>
                 </center>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

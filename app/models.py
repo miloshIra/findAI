@@ -68,24 +68,9 @@ class Entry(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'))
     image = db.Column(db.LargeBinary)
-    service_id = db.Column(db.String(32), index=True)
+    service = db.Column(db.String(32), index=True)
     image_result = db.Column(db.LargeBinary, nullable=True)
     created = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def get_image(id):
-        pass
-
-    def get_result_image(id):
-        pass
-
-    def __dict__(self):
-        return {'id': self.id,
-                'user_id': self.user_id,
-                'image': self.image,
-                'service': self.service,
-                'image_result': self.image_result,
-                'created': self.created}
-
 
 
 

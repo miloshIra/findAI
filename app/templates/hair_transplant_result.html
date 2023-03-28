@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="container">
+
+    <div class="row" style="max width: 600px;">
+        <div class="col-md-6">
+            <center>
+                <h3>Before</h3>
+                <img id="ImagePre" src="data:image/png;base64,{{ context.image }}">
+            </center>
+        </div>
+        <div class="col-md-6">
+            <center>
+                <h3>After</h3>
+            </center>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
