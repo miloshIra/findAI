@@ -1,40 +1,7 @@
 {% extends "base.html" %}
 
-
 {% block app_content %}
 
-<div class="container">
-    {%if current_user.is_authenticated %}
-    <h2>Hello, {{ current_user.username }}!</h2>
-    {% else %}
-    <h1>Hello</h1>
-    {% endif %}
-    <div class="row">
-        <div class="col-md-4" style="">
-            <br>
-            <p style="font-size:25px;">Welcome to finAI, <br>Check out our <br>
-                amazing AI models services! <br>
-                On the bar above!
-            </p>
-            <br>
-            <br>
-        </div>
-        {% include 'snippets/desc.html' %}
-        {% include 'snippets/image.html' %}
-    </div>
-</div>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 mid">
-            <center>
-                <h3> Check out our services</h3>
-            </center>
-        </div>
-    </div>
-</div>
-
-<br>
 <div class="container cards">
     <div class="row">
         <div class="col-md-4">

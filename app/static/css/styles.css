@@ -87,3 +87,54 @@ footer {
     font-size: 30px;
     padding-left: 45px;
 }
+
+
+#ImagePre {
+    border: 5px solid;
+    border-color: white;
+    float: right;
+    clear: both;
+    max-width:300px;
+    max-height:450px;
+
+}
+
+#ImagePrev {
+    border: 5px solid;
+    border-color: white;
+    float: left;
+    clear: both;
+    max-width:300px;
+    max-height:450px;
+}
+
+#ImageHis {
+    border: 2px solid;
+    border-color: white;
+    float: right;
+    clear: both;
+    max-width:80px;
+    max-height:110px;
+}
+
+#ImageHisRes {
+    border: 2px solid;
+    border-color: white;
+    float: left;
+    clear: both;
+    max-width:80px;
+    max-height:110px;
+}
+
+.cfi {
+    padding-right: 1px;
+    padding-left: 1px;
+}
+
+.before {
+    text-align: right;
+}
+
+.after {
+    text-align: left;
+}

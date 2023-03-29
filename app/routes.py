@@ -1,10 +1,12 @@
 from app import app, db
 from .models import User, Company, AIIdea, Entry
-from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, ModelIdeaForm, HairTransForm
+from flask import render_template, flash, redirect, url_for, request, jsonify
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, \
+                      ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from .service import AIService
+import base64
 
 
 @app.route('/')
@@ -82,12 +84,21 @@ def get_users():
 @login_required
 def user_details(username):
     user = User.query.filter_by(username=username).first_or_404()
-    # company = Company.query.filter_by(id=user.company_id).first_or_404()
-    # data = {
-    #     'user': user,
-    #     'company': company,
-    # }
-    return render_template('user.html', user=user)
+    entries = Entry.query.filter_by(user_id=user.id).all()
+    company = Company.query.filter_by(id=user.company_id).first_or_404()
+
+    for entry in entries:
+        entry.image = base64.b64encode(bytes(entry.image)).decode(('utf-8'))
+        # entry.image = entry
+        # base64_image_string = base64.b64encode(binary_image_string).decode('utf-8')
+        # entry = base64_image_string
+
+    context = {
+            'user': user,
+            'company': company,
+            'entries': entries}
+
+    return render_template('user.html', user=user, context=context)
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -127,6 +138,11 @@ def api_docs():
     return render_template('api_docs', title='API documentation')
 
 
+@app.route('/services', methods=["GET"])
+def services():
+    return render_template('services.html')
+
+
 @app.route('/service/hair_trans', methods=['GET', 'POST'])
 def hair_trans():
     if current_user.is_anonymous:
@@ -140,29 +156,104 @@ def hair_trans():
 
         work_dict = {'user': user,
                      'image': data}
-        service = AIService.hair_transplant_service(work_dict)
-        print(service)
 
-        return render_template('hair_transplant_result.html', form=form, context=service)
+        AIService.hair_transplant_service(work_dict)
+
+        return redirect(url_for('hair_transplant_result'))
     return render_template('hair_transplant.html', title='Hair Transplant Model', form=form)
 
 
-@app.route('/service/results', methods=['GET'])
-def get_service_result():
+@app.route('/service/hair_transplant_results', methods=['GET'])
+def hair_transplant_result():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
         return redirect(url_for('index'))
 
-    import base64
-    from io import BytesIO
     entry = Entry.query.filter_by(user_id=current_user.id).order_by(Entry.created.desc()).first()
 
-    binary_string = bytes(entry.image)
-    base64_string = base64.b64encode(binary_string).decode('utf-8')
+    binary_image_string = bytes(entry.image)
+    base64_image_string = base64.b64encode(binary_image_string).decode('utf-8')
 
-    context = {'image': base64_string,
+    context = {'image': base64_image_string,
                'user': 'Ira'}
+
     return render_template('hair_transplant_result.html', context=context)
+
+
+@app.route('/service/weight_loss', methods=['GET', 'POST'])
+def weight_loss():
+    if current_user.is_anonymous:
+        flash('Please sign in to try out services.')
+        return redirect(url_for('index'))
+    form = WeightLossForm()
+    if form.validate_on_submit():
+        user = current_user.id
+        image = request.files['image']
+        data = image.read()
+
+        work_dict = {'user': user,
+                     'image': data}
+
+        AIService.weight_loss_service(work_dict)
+
+        return redirect(url_for('weight_loss_result'))
+    return render_template('weight_loss.html', title='Weight Loss Model', form=form)
+
+
+@app.route('/service/weight_loss_results', methods=['GET'])
+def weight_loss_result():
+    if current_user.is_anonymous:
+        flash('Please sign in to try out services.')
+        return redirect(url_for('index'))
+
+    entry = Entry.query.filter_by(user_id=current_user.id).order_by(Entry.created.desc()).first()
+
+    binary_image_string = bytes(entry.image)
+    base64_image_string = base64.b64encode(binary_image_string).decode('utf-8')
+
+    context = {'image': base64_image_string,
+               'user': 'Ira'}
+
+    return render_template('weight_loss_result.html', context=context)
+
+
+@app.route('/service/muscle_gain', methods=['GET', 'POST'])
+def muscle_gain():
+    if current_user.is_anonymous:
+        flash('Please sign in to try out services.')
+        return redirect(url_for('index'))
+    form = MuscleGainForm()
+    if form.validate_on_submit():
+        user = current_user.id
+        image = request.files['image']
+        data = image.read()
+
+        work_dict = {'user': user,
+                     'image': data}
+
+        AIService.muscle_gain_service(work_dict)
+
+        return redirect(url_for('muscle_gain_result'))
+    return render_template('muscle_gain.html', title='Muscle Gain Model', form=form)
+
+
+@app.route('/service/muscle_gain_results', methods=['GET'])
+def muscle_gain_result():
+    if current_user.is_anonymous:
+        flash('Please sign in to try out services.')
+        return redirect(url_for('index'))
+
+    entry = Entry.query.filter_by(user_id=current_user.id).order_by(Entry.created.desc()).first()
+
+    binary_image_string = bytes(entry.image)
+    base64_image_string = base64.b64encode(binary_image_string).decode('utf-8')
+
+    context = {'image': base64_image_string,
+               'user': current_user.username}
+
+    return render_template('muscle_gain_result.html', context=context)
+
+
 
 
 

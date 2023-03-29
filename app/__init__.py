@@ -10,6 +10,7 @@ from flask_bootstrap import Bootstrap
 from .api.routes import api_bp
 
 
+
 app = Flask(__name__)
 app.config.from_object(Config)
 

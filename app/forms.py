@@ -65,3 +65,15 @@ class HairTransForm(FlaskForm):
     image = FileField('Image', id='image',
                       validators=[DataRequired(), FileAllowed(['jpeg', 'jpg', 'webp', 'png'], 'Images only!')])
     submit = SubmitField('Upload Image')
+
+
+class WeightLossForm(FlaskForm):
+    image = FileField('Image', id='image',
+                      validators=[DataRequired(), FileAllowed(['jpeg', 'jpg', 'webp', 'png'], 'Images only!')])
+    submit = SubmitField('Upload Image')
+
+
+class MuscleGainForm(FlaskForm):
+    image = FileField('Image', id='image',
+                      validators=[DataRequired(), FileAllowed(['jpeg', 'jpg', 'webp', 'png'], 'Images only!')])
+    submit = SubmitField('Upload Image')

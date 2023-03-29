@@ -4,29 +4,27 @@
 {% block app_content %}
 <div class="container">
     <h3>Upload Image here</h3>
-<div class="row">
-<form method="POST" enctype="multipart/form-data">
-  {{ form.hidden_tag() }}
-  <div class="col-md-4">
-    <img id="imagePreview" style="
+    <div class="row">
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="col-md-4">
+                <img id="imagePreview" style="
                                   padding-top:10px;
                                   display:none;
                                   max-width:350px;
                                   max-height:400px;" src="">
-    {{ form.image(class="form-control-file", style="padding-top:15px;", id="image", onchange="displayImage(event)") }}
-    <br>
-    {% if context is not none %}
-<!--       <img id="imageProcessed">{{ context }}</img>-->
-      <p><img src="{{ url_for('static', filename=context) }}"></p>
-      {% endif %}
-    {{ form.submit(class="btn btn-primary") }}
-  </div>
-  </form>
-        {% include 'snippets/desc.html' %}
+                {{ form.image(class="form-control-file", style="padding-top:15px;", id="image",
+                onchange="displayImage(event)") }}
+                <br>
+
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        {% include 'snippets/muscle_gain_desc.html' %}
         {% include 'snippets/image.html' %}
 
-</div>
     </div>
+</div>
 
 <script>
   function displayImage(event) {

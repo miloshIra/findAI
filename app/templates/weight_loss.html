@@ -15,16 +15,11 @@
                                   max-height:400px;" src="">
     {{ form.image(class="form-control-file", style="padding-top:15px;", id="image", onchange="displayImage(event)") }}
     <br>
-    {% if context is not none %}
-<!--       <img id="imageProcessed">{{ context }}</img>-->
-      <p><img src="{{ url_for('static', filename=context) }}"></p>
-      {% endif %}
-    {{ form.submit(class="btn btn-primary") }}
+      {{ form.submit(class="btn btn-primary") }}
   </div>
   </form>
-        {% include 'snippets/desc.html' %}
+        {% include 'snippets/weight_loss_desc.html' %}
         {% include 'snippets/image.html' %}
-
 </div>
     </div>
 
