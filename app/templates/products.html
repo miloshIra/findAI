@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-
-<div class="container cards">
+<div class="container">
+    <center>
+    <p>Products</p>
+    <h2 class="price"><strong>AI models, for your business.</strong></h2>
+    <h4>Check documentation for enterprise API implementation or just use the web UI, right here.</h4>
+    </center>
+</div>
+<div class="container products">
     <div class="row">
         <div class="col-md-4">
             <a href="{{ url_for('hair_trans') }}">
-                <div class="card">
+                <div class="service-card">
                     <center>
                         <h3> Hair Transplant </h3>
                     </center>
@@ -15,7 +21,7 @@
         </div>
         <div class="col-md-4">
             <a href="{{ url_for('weight_loss') }}">
-                <div class="card">
+                <div class="service-card">
                     <center>
                         <h3> Weight Loss </h3>
                     </center>
@@ -24,7 +30,7 @@
         </div>
         <div class="col-md-4">
             <a href="{{ url_for('muscle_gain') }}">
-            <div class="card">
+            <div class="service-card">
                 <center>
                     <h3> Muscle Gain </h3>
                 </center>

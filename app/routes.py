@@ -84,7 +84,7 @@ def get_users():
 @login_required
 def user_details(username):
     user = User.query.filter_by(username=username).first_or_404()
-    entries = Entry.query.filter_by(user_id=user.id).all()
+    entries = Entry.query.filter_by(user_id=user.id).order_by(Entry.created.desc()).limit(5).all()
     company = Company.query.filter_by(id=user.company_id).first_or_404()
 
     for entry in entries:
@@ -138,12 +138,22 @@ def api_docs():
     return render_template('api_docs', title='API documentation')
 
 
-@app.route('/services', methods=["GET"])
-def services():
-    return render_template('services.html')
+@app.route('/products', methods=["GET"])
+def products():
+    return render_template('products.html')
 
 
-@app.route('/service/hair_trans', methods=['GET', 'POST'])
+@app.route('/docs', methods=["GET"])
+def docs():
+    return render_template('docs.html')
+
+
+@app.route('/pricing', methods=["GET"])
+def pricing():
+    return render_template('pricing.html')
+
+
+@app.route('/product/hair_trans', methods=['GET', 'POST'])
 def hair_trans():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
@@ -163,7 +173,7 @@ def hair_trans():
     return render_template('hair_transplant.html', title='Hair Transplant Model', form=form)
 
 
-@app.route('/service/hair_transplant_results', methods=['GET'])
+@app.route('/product/hair_transplant_results', methods=['GET'])
 def hair_transplant_result():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
@@ -180,7 +190,7 @@ def hair_transplant_result():
     return render_template('hair_transplant_result.html', context=context)
 
 
-@app.route('/service/weight_loss', methods=['GET', 'POST'])
+@app.route('/product/weight_loss', methods=['GET', 'POST'])
 def weight_loss():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
@@ -200,7 +210,7 @@ def weight_loss():
     return render_template('weight_loss.html', title='Weight Loss Model', form=form)
 
 
-@app.route('/service/weight_loss_results', methods=['GET'])
+@app.route('/product/weight_loss_results', methods=['GET'])
 def weight_loss_result():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
@@ -217,7 +227,7 @@ def weight_loss_result():
     return render_template('weight_loss_result.html', context=context)
 
 
-@app.route('/service/muscle_gain', methods=['GET', 'POST'])
+@app.route('/product/muscle_gain', methods=['GET', 'POST'])
 def muscle_gain():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')
@@ -237,7 +247,7 @@ def muscle_gain():
     return render_template('muscle_gain.html', title='Muscle Gain Model', form=form)
 
 
-@app.route('/service/muscle_gain_results', methods=['GET'])
+@app.route('/product/muscle_gain_results', methods=['GET'])
 def muscle_gain_result():
     if current_user.is_anonymous:
         flash('Please sign in to try out services.')

@@ -1,14 +1,38 @@
 
-
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap');
 
 body {
+    background-color: #181818;
     font-family: 'Baloo Bhaijaan 2', cursive;
     padding-bottom: 100px;
+    color: #EDEDED;
+}
+
+.img-logo {
+    max-width: 90px;
+    max-length: 90px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+a {
+    color: #232323;
+}
+a:hover {
+    color: #3fcf8e;
+}
+.btn-primary {
+    background-color: #3fcf8e !important;
+    border-color: #3fcf8e !important;
+    color: #EDEDED;
+}
+
+
+.login-image{
+    padding-top: 70px;
 }
 
 footer {
-  background-color: #F6FBF4;
+  background-color: #232323;
   height: 60px;
   position: fixed;
     left: 0 ; right: 0; bottom: 0;
@@ -16,13 +40,52 @@ footer {
 }
 
 .container {
-    background-color: rgba(221,239,242,255);
-    border-radius: 15px;
+    background-color: #181818;
     padding: 20px;
 }
 
+.container-code {
+    background-color: #090909;
+    border-radius: 4px;
+}
+
+.code-commands {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+}
+
+.cards {
+    background-color: #232323;
+    padding: 20px;
+
+}
+.home {
+    min-height: 500px;
+    background-color: #232323;
+}
+
+.service-card {
+    display: block;
+    background-color: #434343;
+    padding: 10px;
+    min-height: 350px;
+    border-radius: 4px;
+}
+
+.pricing-card {
+    display: block;
+    color: grey;
+    background-color: #232323;
+    padding: 10px;
+    min-height: 500px;
+    border-radius: 5px;
+}
+.card-title, .price{
+    color: #3fcf8e;
+}
 .mid {
-    background-color: rgba(221,239,242,255);
+    background-color: #232323;
     padding:10px;
 
 }
@@ -31,26 +94,34 @@ footer {
     padding: 10px;
     min-height: 350px;
     border-radius: 15px;
+    display: inline-block;
 }
 .container-nav {
-    background-color: #F6FBF4;
+    background-color: #181818;
     padding-right: 10px;
-    padding-left: 10
-    px;
+    padding-left: 10px;
     margin-right: auto;
     margin-left: auto;
 }
 
+.navbar-default {
+    border-color: #282828;
+    border-width: 0px;
+    border-bottom-width: 1px;
+}
+
+.navbar-brand{
+    margin-left: 340px;
+}
 
 .navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-brand {
-  color: #C8DBBE; /* Change this value to adjust the link color */
+  color: white; /* Change this value to adjust the link color */
   font-size: 22px;
 }
 
 
 .navbar-default .navbar-header {
-    border-color: #C8DBBE;
     min-height: 50px;
 }
 
@@ -137,4 +208,14 @@ footer {
 
 .after {
     text-align: left;
+}
+
+.prod-type{
+    text-align:center;
+    padding-top:5px;
+    margin: 0 0 0px;
+}
+
+.get-started {
+    margin-bottom: 10px
 }

@@ -2,31 +2,62 @@
 
 {% block app_content %}
 <div class="container">
-    <h2>{{ user.username }}</h2>
-    <p>
-        {{ user.username }} comes from {{ user.company.name }}.
-    </p>
-    <p>Usage history: </p>
-    {% for entry in context.entries %}
+    <h2>Manage your profile and company here</h2>
+    </div>
+<div class="container home">
     <div class="row">
+        <div class="col-sm-3">
+            <h2>{{ user.username }}</h2>
+            <p>
+                {{ user.username }} comes from {{ user.company.name }}.
+            </p>
+            <br>
 
-            {% if entry.service == 'hair_transplant'%}
-        <p style="text-align:left;padding-left:50px;"> Hair transplant </p>
-            {% endif %}
-        <div class="col-md-1 cfi">
-            <div>
-            <img id="ImageHis" src="data:image/png;base64,{{ entry.image }}">
+            <p class="price">Usage history: </p>
+            <div class="card">
+                {% for entry in context.entries %}
+                <a href="{ {url_for('services') }}">
+                    {% if entry.service == 'hair_transplant'%}
+                    <p class="prod-type"> Hair transplant </p>
+                    {% elif entry.service == 'weight_loss' %}
+                    <p class="prod-type"> Weight loss </p>
+                    {% else %}
+                    <p class="prod-type"> Muscle gain </p>
+                    {% endif %}
+
+                    <div class="col-sm-6 cfi">
+                        <div>
+                            <img id="ImageHis" src="data:image/png;base64,{{ entry.image }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 cfi">
+                        <div>
+                            <img id="ImageHisRes" src="data:image/png;base64,{{ entry.image }}">
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
             </div>
         </div>
-        <div class="col-md-1 cfi">
-            <div>
-            <img id="ImageHisRes" src="data:image/png;base64,{{ entry.image }}">
-            </div>
+
+        <div class="col-sm-6">
+            <center>
+                <h2>Hello Darkness</h2>
+            </center>
+        </div>
+        <div class="col-sm-3">
+            <center>
+                <h2>Company</h2>
+            </center>
         </div>
 
-        </div>
-    {% endfor %}
-    <br>
-    <a href="{{ url_for('edit_profile') }}">Edit</a>
+    </div>
+
+
+    <div>
+        <br>
+        <a href="{{ url_for('edit_profile') }}">Edit</a>
+    </div>
+
 </div>
 {% endblock %}

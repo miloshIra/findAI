@@ -9,12 +9,13 @@
     {% else %}
     <h1>Hello</h1>
     {% endif %}
+    <h1> Welcome to findAI</h1>
     <div class="row">
         <div class="col-md-4" style="">
             <br>
-            <p style="font-size:25px;">Welcome to finAI, <br>Check out our <br>
-                amazing AI models services! <br>
-                On the bar above!
+            <p style="font-size:25px; color:#3fcf8e;">Where we make custom tailored <br>
+                amazing AI models just for you<br>
+                Check out our products.
             </p>
             <br>
             <br>
@@ -25,13 +26,12 @@
 </div>
 <br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 mid">
+
+
             <center>
-                <h3> Check out our services</h3>
+                <h3> Check out our products</h3>
             </center>
-        </div>
-    </div>
+
 </div>
 
 <br>
@@ -39,7 +39,7 @@
     <div class="row">
         <div class="col-md-4">
             <a href="{{ url_for('hair_trans') }}">
-                <div class="card">
+                <div class="service-card">
                     <center>
                         <h3> Hair Transplant </h3>
                     </center>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-4">
             <a href="{{ url_for('weight_loss') }}">
-                <div class="card">
+                <div class="service-card">
                     <center>
                         <h3> Weight Loss </h3>
                     </center>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-4">
             <a href="{{ url_for('muscle_gain') }}">
-            <div class="card">
+            <div class="service-card">
                 <center>
                     <h3> Muscle Gain </h3>
                 </center>
