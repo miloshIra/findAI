@@ -37,6 +37,8 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError("Email is taken")
 
+class BeginPasswordResetForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

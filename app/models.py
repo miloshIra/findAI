@@ -59,6 +59,10 @@ class User(UserMixin, ResourceMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def initialize_password_reset(cls, email):
+        user = User.query.filter_by(email=email).first()
+        return user
+
 
 class ModelIdea(db.Model, ResourceMixin):
 

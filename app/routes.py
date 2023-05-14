@@ -2,7 +2,7 @@ from app import app, db
 from .models import User, Company, ModelIdea, Entry
 from flask import render_template, flash, redirect, url_for, request, jsonify
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, \
-                      ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm
+                      ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm, BeginPasswordResetForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from .service import AIService
@@ -41,13 +41,28 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User()
+        form.populate_obj(user)
         user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
+        user.save()
+
         flash('Congrats, you are now a registered user')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/user/begin_password_reset', methods=['GET', 'POST'])
+def begin_password_reset():
+    if current_user.is_anonymous:
+        form = BeginPasswordResetForm()
+
+        if form.valitate_on_submit():
+            user = User.initialize_password_reset(request.form.get('email'))
+
+            flash('An email has been sent to {}'.format(user.email))
+            return redirect(url_for(login))
+    else:
+        return redirect(url_for(index))
+
 
 
 @app.route('/comp_register', methods=['GET', 'POST'])
@@ -85,7 +100,7 @@ def get_users():
 def user_details(username):
     user = User.query.filter_by(username=username).first_or_404()
     entries = Entry.query.filter_by(user_id=user.id).order_by(Entry.created.desc()).limit(5).all()
-    company = Company.query.filter_by(id=user.company_id).first_or_404()
+    company = Company.query.filter_by(id=user.company_id)
 
     for entry in entries:
         entry.image = base64.b64encode(bytes(entry.image)).decode(('utf-8'))
