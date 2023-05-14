@@ -3,9 +3,9 @@
 {% block app_content %}
 <div class="container">
     <center>
-    <p>Products</p>
-    <h2 class="price"><strong>AI models, for your business.</strong></h2>
-    <h4>Check documentation for enterprise API implementation or just use the web UI, right here.</h4>
+        <p>Products</p>
+        <h2 class="price"><strong>AI models, for your business.</strong></h2>
+        <h4>Check documentation for enterprise API implementation or just use the web UI, right here.</h4>
     </center>
 </div>
 <div class="container products">
@@ -15,6 +15,24 @@
                 <div class="service-card">
                     <center>
                         <h3 class="price"> Hair Transplant </h3>
+
+                        <div class="col-sm-6 cfi">
+                            <div>
+                                <img id="ImageProdBefore" src="data:image/png;base64,{{ context.ht_image }}">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">Before</h4>
+                            </center>
+                        </div>
+                        <div class="col-sm-6 cfi">
+                            <div style="color:white; margin-top:40px;">
+                                <img id="ImageProdAfter" src=""
+                                     alt="This is where I'd have an after Image if IVAN WORKED ON THE MODEL">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">After</h4>
+                            </center>
+                        </div>
                     </center>
                 </div>
             </a>
@@ -24,17 +42,55 @@
                 <div class="service-card">
                     <center>
                         <h3 class="price"> Weight Loss </h3>
+
+                        <div class="col-sm-6 cfi">
+                            <div>
+                                <img id="ImageProdBefore1" src="data:image/png;base64,{{ context.wl_image }}">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">Before</h4>
+                            </center>
+                        </div>
+                        <div class="col-sm-6 cfi">
+                            <div style="color:white; margin-top:40px;">
+                                <img id="ImageProdAfter1" src=""
+                                     alt="This is where I'd have an after Image if IVAN WORKED ON THE MODEL">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">After</h4>
+                            </center>
+                        </div>
+
                     </center>
                 </div>
             </a>
         </div>
         <div class="col-md-4">
             <a href="{{ url_for('muscle_gain') }}">
-            <div class="service-card">
-                <center>
-                    <h3 class="price"> Muscle Gain </h3>
-                </center>
-            </div>
+                <div class="service-card">
+                    <center>
+                        <h3 class="price"> Muscle Gain </h3>
+                             <div class="col-sm-6 cfi">
+                            <div>
+                                <img id="ImageProdBefore2" src="data:image/png;base64,{{ context.mg_image }}">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">Before</h4>
+                            </center>
+                        </div>
+                        <div class="col-sm-6 cfi">
+                            <div style="color:white; margin-top:40px;">
+                                <img id="ImageProdAfter2" src=""
+                                     alt="This is where I'd have an after Image if IVAN WORKED ON THE MODEL">
+                            </div>
+                            <center>
+                                <h4 style="color:white;">After</h4>
+                            </center>
+                        </div>
+
+                    </center>
+
+                </div>
             </a>
         </div>
     </div>

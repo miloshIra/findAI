@@ -1,5 +1,5 @@
 from app import app, db
-from .models import User, Company, AIIdea, Entry
+from .models import User, Company, ModelIdea, Entry
 from flask import render_template, flash, redirect, url_for, request, jsonify
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, \
                       ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm
@@ -122,7 +122,7 @@ def model_idea():
         return redirect(url_for('index'))
     form = ModelIdeaForm()
     if form.validate_on_submit():
-        idea = AIIdea(user_id=current_user.id,
+        idea = ModelIdea(user_id=current_user.id,
                       name=form.name.data,
                       category=form.category.data,
                       description=form.description.data)
@@ -140,7 +140,25 @@ def api_docs():
 
 @app.route('/products', methods=["GET"])
 def products():
-    return render_template('products.html')
+    entry_hair_transplant = Entry.query.filter_by(service='hair_transplant').first_or_404()
+    entry_muscle_gain = Entry.query.filter_by(service='muscle_gain').first_or_404()
+    entry_weight_loss = Entry.query.filter_by(service='weight_loss').first_or_404()
+
+    ht_binary_image_string = bytes(entry_hair_transplant.image)
+    ht_base64_image_string = base64.b64encode(ht_binary_image_string).decode('utf-8')
+
+    mg_binary_image_string = bytes(entry_muscle_gain.image)
+    mg_base64_image_string = base64.b64encode(mg_binary_image_string).decode('utf-8')
+
+    wl_binary_image_string = bytes(entry_weight_loss.image)
+    wl_base64_image_string = base64.b64encode(wl_binary_image_string).decode('utf-8')
+
+    context = {'ht_image': ht_base64_image_string,
+               'wl_image': wl_base64_image_string,
+               'mg_image': mg_base64_image_string,
+               'user': 'Ira'}
+
+    return render_template('products.html', context=context)
 
 
 @app.route('/docs', methods=["GET"])

@@ -188,6 +188,43 @@ footer {
     max-height:110px;
 }
 
+#ImageProdBefore {
+    border: 2px solid;
+    border-color: white;
+    float: right;
+    clear: both;
+    max-width:150px;
+    max-height:180px;
+}
+
+#ImageProdBefore1  {
+    border: 2px solid;
+    border-color: white;
+    float: left;
+    clear: both;
+    max-width:150px;
+    max-height:180px;
+}
+
+#ImageProdBefore2  {
+    border: 2px solid;
+    border-color: white;
+    float: left;
+    clear: both;
+    max-width:150px;
+    max-height:180px;
+}
+
+#ImageProdAfter {
+    border: 2px solid;
+    border-color: white;
+    float: right;
+    clear: both;
+    max-width:150px;
+    max-height:180px;
+}
+
+
 #ImageHisRes {
     border: 2px solid;
     border-color: white;
