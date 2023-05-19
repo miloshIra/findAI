@@ -59,8 +59,17 @@ class User(UserMixin, ResourceMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    @classmethod
     def initialize_password_reset(cls, email):
         user = User.query.filter_by(email=email).first()
+
+        from .utils_user import (generate_password, send_password_reset_mail)
+        password = generate_password()
+        user.password = user.set_password(password)
+        user.save()
+        send_password_reset_mail(email, password)
+        user.set_password(password)
+
         return user
 
 

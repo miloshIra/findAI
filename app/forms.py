@@ -37,8 +37,14 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError("Email is taken")
 
-class BeginPasswordResetForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+class PasswordResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError("Email doesn't exist.")
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

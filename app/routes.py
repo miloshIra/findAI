@@ -2,7 +2,7 @@ from app import app, db
 from .models import User, Company, ModelIdea, Entry
 from flask import render_template, flash, redirect, url_for, request, jsonify
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, CompanyRegistrationForm, \
-                      ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm, BeginPasswordResetForm
+                      ModelIdeaForm, HairTransForm, WeightLossForm, MuscleGainForm, PasswordResetForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from .service import AIService
@@ -50,18 +50,18 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route('/user/begin_password_reset', methods=['GET', 'POST'])
-def begin_password_reset():
-    if current_user.is_anonymous:
-        form = BeginPasswordResetForm()
+@app.route('/user/password_reset', methods=['GET', 'POST'])
+def password_reset():
+    while current_user.is_anonymous:
+        form = PasswordResetForm()
 
-        if form.valitate_on_submit():
+        if form.validate_on_submit():
             user = User.initialize_password_reset(request.form.get('email'))
-
+ 
             flash('An email has been sent to {}'.format(user.email))
-            return redirect(url_for(login))
-    else:
-        return redirect(url_for(index))
+            return redirect(url_for('login'))
+    
+        return render_template('pwd_reset/pwd_reset.html', form=form)
 
 
 

@@ -8,11 +8,11 @@ import logging
 from logging.handlers import RotatingFileHandler
 from flask_bootstrap import Bootstrap
 from .api.routes import api_bp
-
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
+mail = Mail(app)
 
 # ---- Register blueprints here -----
 app.register_blueprint(api_bp)
